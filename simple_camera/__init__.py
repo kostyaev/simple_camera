@@ -1,1 +1,1 @@
-from render import render_perspective_camera
+from .render import render_perspective_camera
