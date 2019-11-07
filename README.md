@@ -23,4 +23,4 @@ Image.fromarray(img)
 ![screenshot](assets/example.png)
 
 ## Acknowledgements
-* This code is based on [Face3D](https://github.com/YadiraF/face3d) project.
+* This library is based on [Face3D](https://github.com/YadiraF/face3d) code.
