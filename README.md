@@ -11,8 +11,9 @@ foo@bar:~$ python setup.py install
 ```
 
 ## Usage
-from simple_camera import render_perspective_camera
 ```python
+from simple_camera import render_perspective_camera
+
 img = render_perspective_camera(vertices, faces,
                                 width=256, height=256, 
                                 angles=[0,0,0], translation=[0,0,0], 
