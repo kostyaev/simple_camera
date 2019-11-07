@@ -5,7 +5,7 @@ import simple_camera
 
 setup(
 	name = 'simple_camera',
-    version=simple_camera.__version__,
+    version='0.2.0',
     cmdclass={'build_ext': build_ext},
     ext_modules=[Extension("simple_camera.mesh_core_cython",
                  sources=["simple_camera/lib/mesh_core_cython.pyx",
