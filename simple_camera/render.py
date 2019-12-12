@@ -42,9 +42,9 @@ def render_perspective_camera(vertices, faces, width=256, height=256,
     return rendering
 
 
-def tex_render_perspective_camera(vertices, faces, texture, tex_coords, tex_triangles,
-                                  width=256, height=256, angles=(0, 0, 0),
-                                  translation=(0, 0, 0), scale=1.0):
+def texture_render_perspective_camera(vertices, faces, texture, tex_coords, tex_triangles,
+                                      width=256, height=256, angles=(0, 0, 0),
+                                      translation=(0, 0, 0), scale=1.0):
     """
     Renders an image using perspective camera.
     Args:
