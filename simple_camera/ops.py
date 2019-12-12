@@ -260,3 +260,52 @@ def render_colors_fast(vertices, triangles, colors, h, w, c = 3, BG = None):
                 vertices.shape[0], triangles.shape[0],
                 h, w, c)
     return image
+
+
+def render_texture_fast(vertices, triangles, texture, tex_coords, tex_triangles, h, w, c=3, mapping_type='bilinear',
+                        BG=None):
+    ''' render mesh with texture map
+    Args:
+        vertices: [3, nver]
+        triangles: [3, ntri]
+        texture: [tex_h, tex_w, 3]
+        tex_coords: [ntexcoords, 3]
+        tex_triangles: [ntri, 3]
+        h: height of rendering
+        w: width of rendering
+        c: channel
+        mapping_type: 'bilinear' or 'nearest'
+    '''
+    # initial
+    if BG is None:
+        image = np.zeros((h, w, c), dtype=np.float32)
+    else:
+        assert BG.shape[0] == h and BG.shape[1] == w and BG.shape[2] == c
+        image = BG
+
+    depth_buffer = np.zeros([h, w], dtype=np.float32, order='C') - 999999.
+
+    tex_h, tex_w, tex_c = texture.shape
+    if mapping_type == 'nearest':
+        mt = int(0)
+    elif mapping_type == 'bilinear':
+        mt = int(1)
+    else:
+        mt = int(0)
+
+    # -> C order
+    vertices = vertices.astype(np.float32).copy()
+    triangles = triangles.astype(np.int32).copy()
+    texture = texture.astype(np.float32).copy()
+    tex_coords = tex_coords.astype(np.float32).copy()
+    tex_triangles = tex_triangles.astype(np.int32).copy()
+
+    mesh_core_cython.render_texture_core(
+        image, vertices, triangles,
+        texture, tex_coords, tex_triangles,
+        depth_buffer,
+        vertices.shape[0], tex_coords.shape[0], triangles.shape[0],
+        h, w, c,
+        tex_h, tex_w, tex_c,
+        mt)
+    return image
