@@ -23,7 +23,7 @@ def render_perspective_camera(vertices, faces, width=256, height=256,
 
     """
     vertices = vertices - np.mean(vertices, 0)[np.newaxis, :]
-    s = 180 * scale / (np.max(vertices[:, 1]) - np.min(vertices[:, 1]))
+    s = 180 * scale
     R = angle2matrix(angles)
     t = translation
     vertices = similarity_transform(vertices, s, R, t)  # transformed vertices
