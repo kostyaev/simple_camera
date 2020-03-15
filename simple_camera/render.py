@@ -7,7 +7,8 @@ from simple_camera.ops import *
 def render_perspective_camera(vertices, faces, width=256, height=256,
                               angles=(0, 0, 0), translation=(0, 0, 0), scale=1.0,
                               light_positions=np.array([[0, 0, -100]]),
-                              light_intensities=np.array([[1.2, 1.2, 1.2]])):
+                              light_intensities=np.array([[1.2, 1.2, 1.2]]),
+                              bg_img=None):
     """
     Renders an image using perspective camera.
     Args:
@@ -17,7 +18,7 @@ def render_perspective_camera(vertices, faces, width=256, height=256,
         height: height of the rendered image.
         angles: [pitch, yaw, roll] degrees of rotations.
         scale: A float value, scale multiplier applied to vertices coordinates.
-
+        bg_img: background image
     Returns:
         A Numpy array representing an uint8 rgb image with shape [height,width,3]
 
@@ -36,7 +37,7 @@ def render_perspective_camera(vertices, faces, width=256, height=256,
                              light_positions=light_positions,
                              light_intensities=light_intensities)
 
-    rendering = render_colors_fast(image_vertices, faces, light_colors, height, width)
+    rendering = render_colors_fast(image_vertices, faces, light_colors, height, width, BG=bg_img)
     rendering = (rendering.clip(0, 1) * 255).astype(np.uint8)
 
     return rendering
