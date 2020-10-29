@@ -36,17 +36,18 @@ bool isPointInTri(point p, point p0, point p1, point p2)
     float dot12 = v1.dot(v2); //v1.x * v2.x + v1.y * v2.y//np.dot(v1.T, v2)
 
     // barycentric coordinates
-    float inverDeno;
-    if(dot00*dot11 - dot01*dot01 == 0)
-        inverDeno = 0;
-    else
-        inverDeno = 1/(dot00*dot11 - dot01*dot01);
+    float den = dot00*dot11 - dot01*dot01;
 
-    float u = (dot11*dot02 - dot01*dot12)*inverDeno;
-    float v = (dot00*dot12 - dot01*dot02)*inverDeno;
-
-    // check if point in triangle
-    return (u >= 0) && (v >= 0) && (u + v < 1);
+    if (den == 0) {
+        return false;
+    }
+    else {
+        float inverDeno = 1 / den;
+        float u = (dot11*dot02 - dot01*dot12)*inverDeno;
+        float v = (dot00*dot12 - dot01*dot02)*inverDeno;
+        // check if point in triangle
+        return (u >= 0) && (v >= 0) && (u + v < 1);
+    }
 }
 
 
@@ -182,7 +183,7 @@ void _render_colors_core(
     float p_color, p0_color, p1_color, p2_color;
     float weight[3];
 
-    for(i = 0; i < ntri; i++)
+    for(i = 0; i < ntri; ++i)
     {
         tri_p0_ind = triangles[3*i];
         tri_p1_ind = triangles[3*i + 1];
@@ -203,12 +204,12 @@ void _render_colors_core(
             continue;
         }
 
-        for(y = y_min; y <= y_max; y++) //h
+        for(y = y_min; y <= y_max; ++y) //h
         {
-            for(x = x_min; x <= x_max; x++) //w
+            for(x = x_min; x <= x_max; ++x) //w
             {
                 p.x = x; p.y = y;
-                if(p.x < 2 || p.x > w - 3 || p.y < 2 || p.y > h - 3 || isPointInTri(p, p0, p1, p2))
+                if(isPointInTri(p, p0, p1, p2))
                 {
                     get_point_weight(weight, p, p0, p1, p2);
                     p_depth = weight[0]*p0_depth + weight[1]*p1_depth + weight[2]*p2_depth;
