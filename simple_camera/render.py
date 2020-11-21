@@ -17,12 +17,23 @@ def render_perspective_camera(vertices, faces, width=256, height=256,
         width: width of the rendered image.
         height: height of the rendered image.
         angles: [pitch, yaw, roll] degrees of rotations.
+        translation: 3D vector of translation,
+        light_positions: nx3 array, each row is a 3D vector describing light position
+        light_intensities: nx3 array, each row is a 3D vector describing light intensity
         scale: A float value, scale multiplier applied to vertices coordinates.
-        bg_img: background image
+        bg_img: numpy array representing background image of size [height,width,3] with 0..1 float values
     Returns:
         A Numpy array representing an uint8 rgb image with shape [height,width,3]
 
     """
+    vertices = np.array(vertices, dtype=np.float32)
+    faces = np.array(faces, dtype=np.int32)
+    assert vertices.ndim == 2 and faces.ndim == 2
+
+    light_positions = np.array(light_positions, dtype=np.float32)
+    light_intensities = np.array(light_intensities, dtype=np.float32)
+    assert light_positions.ndim == 2 and light_intensities.ndim == 2
+
     vertices = vertices - np.mean(vertices, 0)[np.newaxis, :]
     s = 180 * scale
     R = angle2matrix(angles)

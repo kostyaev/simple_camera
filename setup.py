@@ -4,7 +4,7 @@ import numpy
 
 setup(
 	name = 'simple_camera',
-    version='0.2.2',
+    version='0.2.4',
     cmdclass={'build_ext': build_ext},
     ext_modules=[Extension("simple_camera.mesh_core_cython",
                  sources=["simple_camera/lib/mesh_core_cython.pyx",
