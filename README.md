@@ -27,7 +27,7 @@ img = render_perspective_camera(vertices, faces,
                                 scale=0.75) 
 Image.fromarray(img)
 ```
-![screenshot](assets/example.png)
+![screenshot](https://github.com/kostyaev/simple_camera/blob/dev/assets/example.png?raw=true)
 
 ## Acknowledgements
 * This library is based on [Face3D](https://github.com/YadiraF/face3d) code.
