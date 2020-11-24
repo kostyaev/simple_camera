@@ -4,12 +4,12 @@ Minimum dependencies library for fast rendering of triangle meshes.
 
 ## Setup
 
-## Install with pip:
+### Install with pip:
 ```console
 foo@bar:~$ pip install simple-camera
 ```
 
-## or manually:
+### or manually:
 Inside cloned repository run the following:
 
 ```console
